@@ -66,6 +66,13 @@ export type Database = {
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "applications_seeker_profile_fk"
+            columns: ["seeker_id"]
+            isOneToOne: false
+            referencedRelation: "seeker_profiles"
+            referencedColumns: ["user_id"]
+          },
         ]
       }
       categories: {
@@ -103,6 +110,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "conv_inst_profile_fk"
+            columns: ["institution_id"]
+            isOneToOne: false
+            referencedRelation: "institution_profiles"
+            referencedColumns: ["user_id"]
+          },
           {
             foreignKeyName: "conversations_institution_id_fkey"
             columns: ["institution_id"]
@@ -315,6 +329,13 @@ export type Database = {
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "jobs_institution_profile_fk"
+            columns: ["institution_id"]
+            isOneToOne: false
+            referencedRelation: "institution_profiles"
+            referencedColumns: ["user_id"]
+          },
         ]
       }
       matches: {
@@ -353,6 +374,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "matches_seeker_profile_fk"
+            columns: ["seeker_id"]
+            isOneToOne: false
+            referencedRelation: "seeker_profiles"
+            referencedColumns: ["user_id"]
           },
         ]
       }
@@ -530,6 +558,42 @@ export type Database = {
           {
             foreignKeyName: "reports_reporter_id_fkey"
             columns: ["reporter_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      saved_jobs: {
+        Row: {
+          created_at: string
+          id: string
+          job_id: string
+          seeker_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          job_id: string
+          seeker_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          job_id?: string
+          seeker_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "saved_jobs_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "jobs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "saved_jobs_seeker_id_fkey"
+            columns: ["seeker_id"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
