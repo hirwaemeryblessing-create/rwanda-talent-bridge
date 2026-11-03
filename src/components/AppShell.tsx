@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate, type LinkProps } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState, type ReactNode } from "react";
 import {
@@ -12,7 +12,7 @@ import { useMe, useUnreadCounts } from "@/lib/session";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
-type Item = { to: string; label: string; icon: ReactNode; badge?: "messages" | "notifications" };
+type Item = { to: LinkProps["to"] & string; label: string; icon: ReactNode; badge?: "messages" | "notifications" };
 
 const SEEKER: Item[] = [
   { to: "/seeker", label: "Overview", icon: <LayoutDashboard /> },
