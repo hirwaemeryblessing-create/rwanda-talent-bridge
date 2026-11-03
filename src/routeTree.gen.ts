@@ -13,6 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as JoinInstitutionRouteImport } from './routes/join.institution'
+import { Route as JoinSeekerRouteImport } from './routes/join.seeker'
 import { Route as LoginInstitutionRouteImport } from './routes/login.institution'
 import { Route as LoginSeekerRouteImport } from './routes/login.seeker'
 
@@ -36,6 +38,16 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
   path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const JoinInstitutionRoute = JoinInstitutionRouteImport.update({
+  id: '/join/institution',
+  path: '/join/institution',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JoinSeekerRoute = JoinSeekerRouteImport.update({
+  id: '/join/seeker',
+  path: '/join/seeker',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginInstitutionRoute = LoginInstitutionRouteImport.update({
   id: '/login/institution',
   path: '/login/institution',
@@ -52,6 +64,8 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/join/institution': typeof JoinInstitutionRoute
+  '/join/seeker': typeof JoinSeekerRoute
   '/login/institution': typeof LoginInstitutionRoute
   '/login/seeker': typeof LoginSeekerRoute
 }
@@ -60,6 +74,8 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/join/institution': typeof JoinInstitutionRoute
+  '/join/seeker': typeof JoinSeekerRoute
   '/login/institution': typeof LoginInstitutionRoute
   '/login/seeker': typeof LoginSeekerRoute
 }
@@ -69,6 +85,8 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/join/institution': typeof JoinInstitutionRoute
+  '/join/seeker': typeof JoinSeekerRoute
   '/login/institution': typeof LoginInstitutionRoute
   '/login/seeker': typeof LoginSeekerRoute
 }
@@ -79,6 +97,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/forgot-password'
     | '/reset-password'
+    | '/join/institution'
+    | '/join/seeker'
     | '/login/institution'
     | '/login/seeker'
   fileRoutesByTo: FileRoutesByTo
@@ -87,6 +107,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/forgot-password'
     | '/reset-password'
+    | '/join/institution'
+    | '/join/seeker'
     | '/login/institution'
     | '/login/seeker'
   id:
@@ -95,6 +117,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/forgot-password'
     | '/reset-password'
+    | '/join/institution'
+    | '/join/seeker'
     | '/login/institution'
     | '/login/seeker'
   fileRoutesById: FileRoutesById
@@ -104,6 +128,8 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  JoinInstitutionRoute: typeof JoinInstitutionRoute
+  JoinSeekerRoute: typeof JoinSeekerRoute
   LoginInstitutionRoute: typeof LoginInstitutionRoute
   LoginSeekerRoute: typeof LoginSeekerRoute
 }
@@ -138,6 +164,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/join/institution': {
+      id: '/join/institution'
+      path: '/join/institution'
+      fullPath: '/join/institution'
+      preLoaderRoute: typeof JoinInstitutionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/join/seeker': {
+      id: '/join/seeker'
+      path: '/join/seeker'
+      fullPath: '/join/seeker'
+      preLoaderRoute: typeof JoinSeekerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login/institution': {
       id: '/login/institution'
       path: '/login/institution'
@@ -160,6 +200,8 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  JoinInstitutionRoute: JoinInstitutionRoute,
+  JoinSeekerRoute: JoinSeekerRoute,
   LoginInstitutionRoute: LoginInstitutionRoute,
   LoginSeekerRoute: LoginSeekerRoute,
 }
