@@ -10,15 +10,27 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedEmployerRouteImport } from './routes/_authenticated/employer'
+import { Route as AuthenticatedSeekerRouteImport } from './routes/_authenticated/seeker'
+import { Route as JobsIndexRouteImport } from './routes/jobs.index'
+import { Route as JobsIdRouteImport } from './routes/jobs.$id'
+import { Route as JoinInstitutionRouteImport } from './routes/join.institution'
+import { Route as JoinSeekerRouteImport } from './routes/join.seeker'
 import { Route as LoginInstitutionRouteImport } from './routes/login.institution'
 import { Route as LoginSeekerRouteImport } from './routes/login.seeker'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -34,6 +46,41 @@ const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedEmployerRoute = AuthenticatedEmployerRouteImport.update({
+  id: '/employer',
+  path: '/employer',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSeekerRoute = AuthenticatedSeekerRouteImport.update({
+  id: '/seeker',
+  path: '/seeker',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const JobsIndexRoute = JobsIndexRouteImport.update({
+  id: '/jobs/',
+  path: '/jobs/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JobsIdRoute = JobsIdRouteImport.update({
+  id: '/jobs/$id',
+  path: '/jobs/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JoinInstitutionRoute = JoinInstitutionRouteImport.update({
+  id: '/join/institution',
+  path: '/join/institution',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JoinSeekerRoute = JoinSeekerRouteImport.update({
+  id: '/join/seeker',
+  path: '/join/seeker',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginInstitutionRoute = LoginInstitutionRouteImport.update({
@@ -52,25 +99,47 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/employer': typeof AuthenticatedEmployerRoute
+  '/seeker': typeof AuthenticatedSeekerRoute
+  '/jobs/$id': typeof JobsIdRoute
+  '/join/institution': typeof JoinInstitutionRoute
+  '/join/seeker': typeof JoinSeekerRoute
   '/login/institution': typeof LoginInstitutionRoute
   '/login/seeker': typeof LoginSeekerRoute
+  '/jobs/': typeof JobsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/employer': typeof AuthenticatedEmployerRoute
+  '/seeker': typeof AuthenticatedSeekerRoute
+  '/jobs/$id': typeof JobsIdRoute
+  '/join/institution': typeof JoinInstitutionRoute
+  '/join/seeker': typeof JoinSeekerRoute
   '/login/institution': typeof LoginInstitutionRoute
   '/login/seeker': typeof LoginSeekerRoute
+  '/jobs': typeof JobsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/employer': typeof AuthenticatedEmployerRoute
+  '/_authenticated/seeker': typeof AuthenticatedSeekerRoute
+  '/jobs/$id': typeof JobsIdRoute
+  '/join/institution': typeof JoinInstitutionRoute
+  '/join/seeker': typeof JoinSeekerRoute
   '/login/institution': typeof LoginInstitutionRoute
   '/login/seeker': typeof LoginSeekerRoute
+  '/jobs/': typeof JobsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -79,33 +148,60 @@ export interface FileRouteTypes {
     | '/auth'
     | '/forgot-password'
     | '/reset-password'
+    | '/dashboard'
+    | '/employer'
+    | '/seeker'
+    | '/jobs/$id'
+    | '/join/institution'
+    | '/join/seeker'
     | '/login/institution'
     | '/login/seeker'
+    | '/jobs/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
     | '/forgot-password'
     | '/reset-password'
+    | '/dashboard'
+    | '/employer'
+    | '/seeker'
+    | '/jobs/$id'
+    | '/join/institution'
+    | '/join/seeker'
     | '/login/institution'
     | '/login/seeker'
+    | '/jobs'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/auth'
     | '/forgot-password'
     | '/reset-password'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/employer'
+    | '/_authenticated/seeker'
+    | '/jobs/$id'
+    | '/join/institution'
+    | '/join/seeker'
     | '/login/institution'
     | '/login/seeker'
+    | '/jobs/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  JobsIdRoute: typeof JobsIdRoute
+  JoinInstitutionRoute: typeof JoinInstitutionRoute
+  JoinSeekerRoute: typeof JoinSeekerRoute
   LoginInstitutionRoute: typeof LoginInstitutionRoute
   LoginSeekerRoute: typeof LoginSeekerRoute
+  JobsIndexRoute: typeof JobsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -115,6 +211,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -138,6 +241,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/employer': {
+      id: '/_authenticated/employer'
+      path: '/employer'
+      fullPath: '/employer'
+      preLoaderRoute: typeof AuthenticatedEmployerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/seeker': {
+      id: '/_authenticated/seeker'
+      path: '/seeker'
+      fullPath: '/seeker'
+      preLoaderRoute: typeof AuthenticatedSeekerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/jobs/': {
+      id: '/jobs/'
+      path: '/jobs'
+      fullPath: '/jobs/'
+      preLoaderRoute: typeof JobsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jobs/$id': {
+      id: '/jobs/$id'
+      path: '/jobs/$id'
+      fullPath: '/jobs/$id'
+      preLoaderRoute: typeof JobsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/join/institution': {
+      id: '/join/institution'
+      path: '/join/institution'
+      fullPath: '/join/institution'
+      preLoaderRoute: typeof JoinInstitutionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/join/seeker': {
+      id: '/join/seeker'
+      path: '/join/seeker'
+      fullPath: '/join/seeker'
+      preLoaderRoute: typeof JoinSeekerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login/institution': {
       id: '/login/institution'
       path: '/login/institution'
@@ -155,13 +307,33 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedEmployerRoute: typeof AuthenticatedEmployerRoute
+  AuthenticatedSeekerRoute: typeof AuthenticatedSeekerRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedEmployerRoute: AuthenticatedEmployerRoute,
+  AuthenticatedSeekerRoute: AuthenticatedSeekerRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  JobsIdRoute: JobsIdRoute,
+  JoinInstitutionRoute: JoinInstitutionRoute,
+  JoinSeekerRoute: JoinSeekerRoute,
   LoginInstitutionRoute: LoginInstitutionRoute,
   LoginSeekerRoute: LoginSeekerRoute,
+  JobsIndexRoute: JobsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
