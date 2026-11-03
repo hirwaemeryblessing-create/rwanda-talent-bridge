@@ -17,6 +17,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedEmployerRouteImport } from './routes/_authenticated/employer'
 import { Route as AuthenticatedSeekerRouteImport } from './routes/_authenticated/seeker'
+import { Route as JobsIndexRouteImport } from './routes/jobs.index'
 import { Route as JoinInstitutionRouteImport } from './routes/join.institution'
 import { Route as JoinSeekerRouteImport } from './routes/join.seeker'
 import { Route as LoginInstitutionRouteImport } from './routes/login.institution'
@@ -61,6 +62,11 @@ const AuthenticatedSeekerRoute = AuthenticatedSeekerRouteImport.update({
   path: '/seeker',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const JobsIndexRoute = JobsIndexRouteImport.update({
+  id: '/jobs/',
+  path: '/jobs/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const JoinInstitutionRoute = JoinInstitutionRouteImport.update({
   id: '/join/institution',
   path: '/join/institution',
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/join/seeker': typeof JoinSeekerRoute
   '/login/institution': typeof LoginInstitutionRoute
   '/login/seeker': typeof LoginSeekerRoute
+  '/jobs/': typeof JobsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -107,6 +114,7 @@ export interface FileRoutesByTo {
   '/join/seeker': typeof JoinSeekerRoute
   '/login/institution': typeof LoginInstitutionRoute
   '/login/seeker': typeof LoginSeekerRoute
+  '/jobs': typeof JobsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -122,6 +130,7 @@ export interface FileRoutesById {
   '/join/seeker': typeof JoinSeekerRoute
   '/login/institution': typeof LoginInstitutionRoute
   '/login/seeker': typeof LoginSeekerRoute
+  '/jobs/': typeof JobsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -137,6 +146,7 @@ export interface FileRouteTypes {
     | '/join/seeker'
     | '/login/institution'
     | '/login/seeker'
+    | '/jobs/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/join/seeker'
     | '/login/institution'
     | '/login/seeker'
+    | '/jobs'
   id:
     | '__root__'
     | '/'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '/join/seeker'
     | '/login/institution'
     | '/login/seeker'
+    | '/jobs/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -176,6 +188,7 @@ export interface RootRouteChildren {
   JoinSeekerRoute: typeof JoinSeekerRoute
   LoginInstitutionRoute: typeof LoginInstitutionRoute
   LoginSeekerRoute: typeof LoginSeekerRoute
+  JobsIndexRoute: typeof JobsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -236,6 +249,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSeekerRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/jobs/': {
+      id: '/jobs/'
+      path: '/jobs'
+      fullPath: '/jobs/'
+      preLoaderRoute: typeof JobsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/join/institution': {
       id: '/join/institution'
       path: '/join/institution'
@@ -292,6 +312,7 @@ const rootRouteChildren: RootRouteChildren = {
   JoinSeekerRoute: JoinSeekerRoute,
   LoginInstitutionRoute: LoginInstitutionRoute,
   LoginSeekerRoute: LoginSeekerRoute,
+  JobsIndexRoute: JobsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
