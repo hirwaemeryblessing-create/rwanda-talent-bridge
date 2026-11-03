@@ -18,6 +18,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedEmployerRouteImport } from './routes/_authenticated/employer'
 import { Route as AuthenticatedSeekerRouteImport } from './routes/_authenticated/seeker'
 import { Route as JobsIndexRouteImport } from './routes/jobs.index'
+import { Route as JobsIdRouteImport } from './routes/jobs.$id'
 import { Route as JoinInstitutionRouteImport } from './routes/join.institution'
 import { Route as JoinSeekerRouteImport } from './routes/join.seeker'
 import { Route as LoginInstitutionRouteImport } from './routes/login.institution'
@@ -67,6 +68,11 @@ const JobsIndexRoute = JobsIndexRouteImport.update({
   path: '/jobs/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const JobsIdRoute = JobsIdRouteImport.update({
+  id: '/jobs/$id',
+  path: '/jobs/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const JoinInstitutionRoute = JoinInstitutionRouteImport.update({
   id: '/join/institution',
   path: '/join/institution',
@@ -96,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/employer': typeof AuthenticatedEmployerRoute
   '/seeker': typeof AuthenticatedSeekerRoute
+  '/jobs/$id': typeof JobsIdRoute
   '/join/institution': typeof JoinInstitutionRoute
   '/join/seeker': typeof JoinSeekerRoute
   '/login/institution': typeof LoginInstitutionRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/employer': typeof AuthenticatedEmployerRoute
   '/seeker': typeof AuthenticatedSeekerRoute
+  '/jobs/$id': typeof JobsIdRoute
   '/join/institution': typeof JoinInstitutionRoute
   '/join/seeker': typeof JoinSeekerRoute
   '/login/institution': typeof LoginInstitutionRoute
@@ -126,6 +134,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/employer': typeof AuthenticatedEmployerRoute
   '/_authenticated/seeker': typeof AuthenticatedSeekerRoute
+  '/jobs/$id': typeof JobsIdRoute
   '/join/institution': typeof JoinInstitutionRoute
   '/join/seeker': typeof JoinSeekerRoute
   '/login/institution': typeof LoginInstitutionRoute
@@ -142,6 +151,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/employer'
     | '/seeker'
+    | '/jobs/$id'
     | '/join/institution'
     | '/join/seeker'
     | '/login/institution'
@@ -156,6 +166,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/employer'
     | '/seeker'
+    | '/jobs/$id'
     | '/join/institution'
     | '/join/seeker'
     | '/login/institution'
@@ -171,6 +182,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/employer'
     | '/_authenticated/seeker'
+    | '/jobs/$id'
     | '/join/institution'
     | '/join/seeker'
     | '/login/institution'
@@ -184,6 +196,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  JobsIdRoute: typeof JobsIdRoute
   JoinInstitutionRoute: typeof JoinInstitutionRoute
   JoinSeekerRoute: typeof JoinSeekerRoute
   LoginInstitutionRoute: typeof LoginInstitutionRoute
@@ -256,6 +269,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JobsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/jobs/$id': {
+      id: '/jobs/$id'
+      path: '/jobs/$id'
+      fullPath: '/jobs/$id'
+      preLoaderRoute: typeof JobsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/join/institution': {
       id: '/join/institution'
       path: '/join/institution'
@@ -308,6 +328,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  JobsIdRoute: JobsIdRoute,
   JoinInstitutionRoute: JoinInstitutionRoute,
   JoinSeekerRoute: JoinSeekerRoute,
   LoginInstitutionRoute: LoginInstitutionRoute,
