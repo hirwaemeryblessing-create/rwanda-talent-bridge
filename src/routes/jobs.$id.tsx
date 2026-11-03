@@ -54,7 +54,7 @@ function JobDetail() {
   });
 
   async function toggleSave() {
-    if (!me) return nav({ to: "/login/seeker" });
+    if (!me) { nav({ to: "/login/seeker" }); return; }
     if (mine?.saved) await supabase.from("saved_jobs").delete().eq("job_id", id).eq("seeker_id", me.id);
     else await supabase.from("saved_jobs").insert({ job_id: id, seeker_id: me.id });
     qc.invalidateQueries({ queryKey: ["job-mine", id] });
@@ -71,7 +71,7 @@ function JobDetail() {
     nav({ to: "/messages", search: { c: cid } });
   }
   async function report() {
-    if (!me) return nav({ to: "/auth" });
+    if (!me) { nav({ to: "/auth" }); return; }
     const reason = window.prompt("Why are you reporting this job?");
     if (!reason?.trim()) return;
     const { error } = await supabase.from("reports").insert({ reporter_id: me.id, target_type: "job", target_id: id, reason: reason.trim().slice(0, 1000) });

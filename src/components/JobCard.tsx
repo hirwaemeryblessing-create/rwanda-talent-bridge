@@ -6,7 +6,7 @@ import type { Tables } from "@/integrations/supabase/types";
 export type JobWithInst = Tables<"jobs"> & { institution: { name: string; logo_url: string | null; verified: boolean } | null };
 export const JOB_SELECT = "*, institution:institution_profiles(name, logo_url, verified)";
 
-export function InstLogo({ url, className = "h-12 w-12" }: { url?: string | null; className?: string }) {
+export function InstLogo({ url, className = "h-12 w-12" }: { url?: string | null | undefined; className?: string }) {
   return url ? <img src={url} alt="" className={`${className} rounded-xl border border-border bg-foreground object-contain p-1`} />
     : <div className={`${className} flex items-center justify-center rounded-xl bg-gradient-primary`}><Building2 className="h-5 w-5" /></div>;
 }
