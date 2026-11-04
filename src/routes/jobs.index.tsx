@@ -43,7 +43,7 @@ function JobsPage() {
     if (s && !(`${j.title} ${j.description} ${j.institution?.name} ${j.skills_required.join(" ")}`.toLowerCase().includes(s))) return false;
     if (f.category && j.category !== f.category) return false;
     if (f.location && j.location !== f.location) return false;
-    if (f.education && (RANK[j.education_level ?? ""] ?? 0) > RANK[f.education]) return false;
+    if (f.education && (RANK[j.education_level ?? ""] ?? 0) > (RANK[f.education] ?? 0)) return false;
     if (f.experience && j.min_experience > Number(f.experience)) return false;
     if (f.type && j.employment_type !== f.type) return false;
     if (f.salary && (j.salary_max ?? j.salary_min ?? 0) < Number(f.salary)) return false;

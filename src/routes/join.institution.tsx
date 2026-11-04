@@ -31,12 +31,12 @@ function JoinInstitution() {
   const [done, setDone] = useState(false);
   const set = (k: keyof typeof f) => (v: string) => setF((s) => ({ ...s, [k]: v }));
 
-  async function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent): Promise<void> {
     e.preventDefault();
-    if (f.password.length < 8) return toast.error("Password must be at least 8 characters.");
-    if (f.password !== f.confirm) return toast.error("Passwords don't match.");
+    if (f.password.length < 8) { toast.error("Password must be at least 8 characters."); return; }
+    if (f.password !== f.confirm) { toast.error("Passwords don't match."); return; }
     const phone = normalizeRwPhone(f.phone);
-    if (!phone) return toast.error("Enter a valid Rwandan phone number.");
+    if (!phone) { toast.error("Enter a valid Rwandan phone number."); return; }
     setBusy(true);
     const { confirm: _c, password, email, ...meta } = f;
     const { error } = await supabase.auth.signUp({
@@ -44,7 +44,7 @@ function JoinInstitution() {
       options: { emailRedirectTo: `${window.location.origin}/employer/profile`, data: { ...meta, phone, account_type: "institution" } },
     });
     setBusy(false);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     setDone(true);
   }
 
