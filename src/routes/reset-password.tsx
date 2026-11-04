@@ -23,7 +23,7 @@ function Reset() {
   const nav = useNavigate();
   const [pw, setPw] = useState("");
   const [pw2, setPw2] = useState("");
-  async function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent): Promise<unknown> {
     e.preventDefault();
     if (pw.length < 8) return toast.error("Use at least 8 characters.");
     if (pw !== pw2) return toast.error("Passwords don't match.");

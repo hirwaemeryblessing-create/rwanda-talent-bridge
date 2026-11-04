@@ -59,7 +59,7 @@ function JobDetail() {
     else await supabase.from("saved_jobs").insert({ job_id: id, seeker_id: me.id });
     qc.invalidateQueries({ queryKey: ["job-mine", id] });
   }
-  async function messageEmployer() {
+  async function messageEmployer(): Promise<unknown> {
     if (!me || !job) return;
     const { data: existing } = await supabase.from("conversations").select("id").eq("seeker_id", me.id).eq("institution_id", job.institution_id).maybeSingle();
     let cid = existing?.id;

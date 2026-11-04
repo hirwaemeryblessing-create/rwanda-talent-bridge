@@ -35,7 +35,7 @@ function JoinSeeker() {
   const [done, setDone] = useState(false);
   const set = (k: keyof typeof f) => (v: string) => setF((s) => ({ ...s, [k]: v }));
 
-  async function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent): Promise<unknown> {
     e.preventDefault();
     if (f.password.length < 8) return toast.error("Password must be at least 8 characters.");
     if (f.password !== f.confirm) return toast.error("Passwords don't match.");
